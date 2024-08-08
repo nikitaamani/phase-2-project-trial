@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import '../index.css';
 
-const Table = ({ transactions }) => {
-  const [sortOrder, setSortOrder] = useState('');
+const Table = ({ transactions, onDelete }) => {
+  const [sortOrder, setSortOrder] = React.useState('');
 
   const sortTransactions = (order) => {
     if (order === 'categoryAsc') {
@@ -33,12 +33,20 @@ const Table = ({ transactions }) => {
   const sortedTransactions = sortTransactions(sortOrder);
 
   const renderTableRows = () => {
-    return sortedTransactions.map((transaction, index) => (
-      <tr key={index}>
+    return sortedTransactions.map((transaction) => (
+      <tr key={transaction.id}>
         <td>{transaction.date}</td>
         <td>{transaction.description}</td>
         <td>{transaction.category}</td>
         <td>{transaction.amount}</td>
+        <td>
+          <button
+            className="delete-button"
+            onClick={() => onDelete(transaction.id)}
+          >
+            Delete
+          </button>
+        </td>
       </tr>
     ));
   };
@@ -62,9 +70,20 @@ const Table = ({ transactions }) => {
             <th>Description</th>
             <th>Category</th>
             <th>Amount</th>
+            <th>Action</th>
           </tr>
         </thead>
-        <tbody>{renderTableRows()}</tbody>
+        <tbody>
+          {sortedTransactions.length ? (
+            renderTableRows()
+          ) : (
+            <tr>
+              <td colSpan="5" className="no-transactions">
+                No transactions found
+              </td>
+            </tr>
+          )}
+        </tbody>
       </table>
     </div>
   );

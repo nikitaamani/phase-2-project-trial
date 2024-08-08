@@ -149,3 +149,20 @@
   border: 1px solid #ccc;
   border-radius: 4px;
 }
+.no-transactions {
+  text-align: center;
+  color: red;
+  font-weight: bold;
+}
+.delete-button {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.delete-button:hover {
+  background-color: #c0392b;
+}
